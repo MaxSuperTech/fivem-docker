@@ -40,6 +40,8 @@ if [ "${GIT_ENABLED}" == "true" ] || [ "${GIT_ENABLED}" == "1" ]; then
 
     # If git origin matches the repo specified by user then pull
     if [ "${GIT_ORIGIN}" == "${GIT_REPOURL}" ]; then #
+     echo "Setting pull strategy to merge (no rebase)..."
+      git config pull.rebase false
       git pull && echo "Finished pulling /home/container/resources/ from git." || echo "Failed pulling /home/container/resources/ from git."
 	else
 	  echo -e "git repository in /home/container/resources/ does not match user provided configuration. Failed pulling /home/container/resources/ from git."
