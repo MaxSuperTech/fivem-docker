@@ -15,6 +15,13 @@ if [ "${GIT_ENABLED}" == "true" ] || [ "${GIT_ENABLED}" == "1" ]; then
       GIT_REPOURL=${GIT_REPOURL}.git
   fi
 
+  if [ -z "${GIT_BRANCH}" ]; then
+    GIT_BRANCH="main"
+  else
+    GIT_BRANCH="${GIT_BRANCH}"
+  fi
+
+
   if [ -z "${GIT_USERNAME}" ] && [ -z "${GIT_TOKEN}" ]; then # Check for git username & token
     echo -e "git Username or git Token was not specified."
   else
@@ -65,7 +72,7 @@ if [ "${GIT_ENABLED}" == "true" ] || [ "${GIT_ENABLED}" == "1" ]; then
       git commit -m "Auto-sync from server at ${TIMESTAMP}" || echo "Aucun changement à commit"
 
       GIT_PUSH_URL="https://${GIT_USERNAME}:${GIT_TOKEN}@$(echo -e ${GIT_REPOURL} | cut -d/ -f3-)"
-      git push "${GIT_PUSH_URL}" "${GIT_BRANCH:-main}" && echo "Push vers GitHub réussi." || echo "Échec du push vers GitHub."
+      git push "${GIT_PUSH_URL}" "${GIT_BRANCH}" && echo "Push vers GitHub réussi." || echo "Échec du push vers GitHub."
     else
       echo "Ce n’est pas un dépôt Git valide. Aucun push effectué."
     fi
