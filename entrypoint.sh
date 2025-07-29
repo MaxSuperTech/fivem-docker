@@ -71,7 +71,8 @@ if [ "${GIT_ENABLED}" == "true" ] || [ "${GIT_ENABLED}" == "1" ]; then
       TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
       git commit -m "Auto-sync from server at ${TIMESTAMP}" || echo "Aucun changement à commit"
 
-      GIT_PUSH_URL="https://${GIT_USERNAME}:${GIT_TOKEN}@$(echo -e ${GIT_REPOURL} | cut -d/ -f3-)"
+      GIT_REPOURL_CLEAN=$(echo "${GIT_REPOURL}" | sed 's|https://||;s|\.git/*$|.git|')
+      GIT_PUSH_URL="https://${GIT_USERNAME}:${GIT_TOKEN}@${GIT_REPOURL_CLEAN}"
       git push "${GIT_PUSH_URL}" "${GIT_BRANCH}" && echo "Push vers GitHub réussi." || echo "Échec du push vers GitHub."
     else
       echo "Ce n’est pas un dépôt Git valide. Aucun push effectué."
