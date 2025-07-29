@@ -4,14 +4,14 @@ cd /home/container
 # Auto update resources from git.
 if [ "${GIT_ENABLED}" == "true" ] || [ "${GIT_ENABLED}" == "1" ]; then
 
-git reset --hard HEAD
-git clean -fd
-
   # Pre git stuff
   echo "Wait, preparing to pull or clone from git.";
 
   mkdir -p /home/container/resources
   cd /home/container/resources
+
+  git reset --hard HEAD
+git clean -fd
 
   # Git stuff
   if [[ ${GIT_REPOURL} != *.git ]]; then # Add .git at end of URL
