@@ -52,22 +52,23 @@ if [ "${GIT_ENABLED}" == "true" ] || [ "${GIT_ENABLED}" == "1" ]; then
   cd /home/container
 
   if [ "${GIT_PUSH_ENABLED}" == "true" ] || [ "${GIT_PUSH_ENABLED}" == "1" ]; then
-  echo "Preparing to push local changes to GitHub..."
+    echo "Preparing to push local changes to GitHub..."
 
-  cd /home/container/resources
+    cd /home/container/resources
 
-  if [ -d ".git" ]; then
-    git config user.name "${GIT_USERNAME}"
-    git config user.email "${GIT_USERNAME}@users.noreply.github.com"
+    if [ -d ".git" ]; then
+      git config user.name "${GIT_USERNAME}"
+      git config user.email "${GIT_USERNAME}@users.noreply.github.com"
 
-    git add .
-    TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
-    git commit -m "Auto-sync from server at ${TIMESTAMP}" || echo "Aucun changement à commit"
+      git add .
+      TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+      git commit -m "Auto-sync from server at ${TIMESTAMP}" || echo "Aucun changement à commit"
 
-    GIT_PUSH_URL="https://${GIT_USERNAME}:${GIT_TOKEN}@$(echo -e ${GIT_REPOURL} | cut -d/ -f3-)"
-    git push "${GIT_PUSH_URL}" "${GIT_BRANCH:-main}" && echo "Push vers GitHub réussi." || echo "Échec du push vers GitHub."
-  else
-    echo "Ce n’est pas un dépôt Git valide. Aucun push effectué."
+      GIT_PUSH_URL="https://${GIT_USERNAME}:${GIT_TOKEN}@$(echo -e ${GIT_REPOURL} | cut -d/ -f3-)"
+      git push "${GIT_PUSH_URL}" "${GIT_BRANCH:-main}" && echo "Push vers GitHub réussi." || echo "Échec du push vers GitHub."
+    else
+      echo "Ce n’est pas un dépôt Git valide. Aucun push effectué."
+    fi
   fi
 fi
 
