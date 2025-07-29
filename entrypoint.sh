@@ -4,6 +4,9 @@ cd /home/container
 # Auto update resources from git.
 if [ "${GIT_ENABLED}" == "true" ] || [ "${GIT_ENABLED}" == "1" ]; then
 
+git reset --hard HEAD
+git clean -fd
+
   # Pre git stuff
   echo "Wait, preparing to pull or clone from git.";
 
