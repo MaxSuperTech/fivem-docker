@@ -72,8 +72,7 @@ if [ "${GIT_ENABLED}" == "true" ] || [ "${GIT_ENABLED}" == "1" ]; then
       git commit -m "Auto-sync from server at ${TIMESTAMP}" || echo "Aucun changement à commit"
 
       # Nettoyage et reconstruction de l'URL Git propre
-      GIT_REPOURL_CLEAN=$(echo "${GIT_REPOURL}" | sed 's|https://||;s|[\/]*$||;s|\.git$||')
-      GIT_PUSH_URL="https://${GIT_USERNAME}:${GIT_TOKEN}@${GIT_REPOURL_CLEAN}.git"
+      GIT_PUSH_URL="https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/${GIT_USERNAME}/${REPO_NAME}.git"
       echo "URL finale Git Push : ${GIT_PUSH_URL}"
 
       git push "${GIT_PUSH_URL}" "${GIT_BRANCH}" && echo "Push vers GitHub réussi." || echo "Échec du push vers GitHub."
