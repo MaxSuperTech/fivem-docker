@@ -40,8 +40,6 @@ if [ "${GIT_ENABLED}" == "true" ] || [ "${GIT_ENABLED}" == "1" ]; then
 
     # If git origin matches the repo specified by user then pull
     if [ "${GIT_ORIGIN}" == "${GIT_REPOURL}" ]; then #
-     echo "Setting pull strategy to merge (no rebase)..."
-      git config pull.rebase false
       git pull && echo "Finished pulling /home/container/resources/ from git." || echo "Failed pulling /home/container/resources/ from git."
 	else
 	  echo -e "git repository in /home/container/resources/ does not match user provided configuration. Failed pulling /home/container/resources/ from git."
@@ -75,7 +73,6 @@ if [ "${GIT_ENABLED}" == "true" ] || [ "${GIT_ENABLED}" == "1" ]; then
 
       # Nettoyage et reconstruction de l'URL Git propre
       GIT_PUSH_URL="https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/${GIT_USERNAME}/${REPO_NAME}.git"
-      echo "URL finale Git Push : ${GIT_PUSH_URL}"
 
       git push "${GIT_PUSH_URL}" "${GIT_BRANCH}" && echo "Push vers GitHub réussi." || echo "Échec du push vers GitHub."
     else
