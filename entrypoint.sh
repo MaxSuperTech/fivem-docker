@@ -10,9 +10,6 @@ if [ "${GIT_ENABLED}" == "true" ] || [ "${GIT_ENABLED}" == "1" ]; then
   mkdir -p /home/container/resources
   cd /home/container/resources
 
-  git reset --hard HEAD
-git clean -fd
-
   # Git stuff
   if [[ ${GIT_REPOURL} != *.git ]]; then # Add .git at end of URL
       GIT_REPOURL=${GIT_REPOURL}.git
